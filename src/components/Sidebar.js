@@ -1,55 +1,47 @@
-export default function Sidebar() {
+"use client";
+
+import { useRouter } from "next/navigation";
+
+export default function Sidebar({ username }) {
+  const router = useRouter();
+  const handleLogout = () => {
+    localStorage.removeItem("username"); // Clear user data
+    router.push("/login"); // Redirect to login page
+  };
+
   return (
-    <div className="p-6 bg-green-700 text-white h-screen flex flex-col items-center shadow-lg">
-      {/* User Avatar */}
-      <img
-        src="https://via.placeholder.com/60"
-        alt="User Avatar"
-        className="rounded-full mb-4 border-2 border-white hover:border-green-300 transition-all duration-300"
-      />
-
-      {/* User Name */}
-      <h1 className="text-xl font-bold mb-1 text-center hover:text-green-300 transition-all duration-300">
-        Your Name
-      </h1>
-
-      {/* Online Status */}
-      <div className="flex items-center space-x-2">
-        <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-        <p className="text-sm text-gray-200">Online</p>
+    <div className="p-6 bg-gray-900 text-white h-screen flex flex-col items-center shadow-xl w-60">
+      {/* Profile Section */}
+      <div className="flex flex-col items-center mb-6">
+        <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-xl font-bold">
+          {username ? username[0].toUpperCase() : "G"}
+        </div>
+        <h1 className="text-lg font-semibold mt-2">{username || "Guest"}</h1>
       </div>
 
-      {/* Divider */}
-      <div className="w-full border-b border-green-600 my-6"></div>
-
-      {/* Menu Items */}
-      <nav className="w-full">
-        <ul className="space-y-4">
-          <li className="hover:bg-green-600 p-2 rounded-lg transition-all duration-300 cursor-pointer">
-            <span className="flex items-center space-x-3">
-              <span>🏠</span>
-              <span>Home</span>
-            </span>
-          </li>
-          <li className="hover:bg-green-600 p-2 rounded-lg transition-all duration-300 cursor-pointer">
-            <span className="flex items-center space-x-3">
-              <span>📂</span>
-              <span>Files</span>
-            </span>
-          </li>
-          <li className="hover:bg-green-600 p-2 rounded-lg transition-all duration-300 cursor-pointer">
-            <span className="flex items-center space-x-3">
-              <span>⚙️</span>
-              <span>Settings</span>
-            </span>
-          </li>
-        </ul>
-      </nav>
-
-      {/* Logout Button */}
-      <button className="mt-auto w-full bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded-lg transition-all duration-300">
+      {/* Navigation */}
+      <nav className="flex flex-col w-full space-y-4">
+        <button className="w-full text-left px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 hover:text-green-400 transition">
+          🏠 Home
+        </button>
+        <button className="w-full text-left px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 hover:text-green-400 transition">
+          💬 Chats
+        </button>
+        <button className="w-full text-left px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 hover:text-green-400 transition">
+          ⚙️ Settings
+        </button>
+        <button
+        onClick={handleLogout}
+        className="mt-auto bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-all duration-300"
+      >
         Logout
       </button>
+      </nav>
+
+      {/* Footer */}
+      <div className="mt-auto text-gray-500 text-sm">
+        <p>© 2025 ChatApp</p>
+      </div>
     </div>
   );
 }

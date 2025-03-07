@@ -18,11 +18,11 @@ export default function Chat() {
 
   const getBotResponse = (userMessage) => {
     const responses = {
-      "hi": "Hey! 😊",
-      "hello": "Hi there! 👋",
+      hi: "Hey! 😊",
+      hello: "Hi there! 👋",
       "how are you?": "I'm good, what about you? 🤖",
       "what is your name?": "I am a chatbot! 🤖",
-      "bye": "Goodbye! Have a great day! 👋",
+      bye: "Goodbye! Have a great day! 👋",
     };
 
     return responses[userMessage.toLowerCase()] || "I don't understand that. 🤔";
@@ -47,39 +47,42 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-md mx-auto bg-gray-50 shadow-lg rounded-lg border border-gray-200 overflow-hidden">
+    <div className="flex flex-col h-screen max-w-lg mx-auto bg-gray-900 text-white shadow-2xl rounded-xl border border-gray-800 overflow-hidden">
       {/* Chat Header */}
-      <div className="bg-green-600 text-white p-4 rounded-t-lg flex items-center shadow-sm">
-        <Image src="/bot-avatar.png" width={40} height={40} className="rounded-full mr-3 border-2 border-white" alt="Bot" />
-        <h1 className="text-lg font-bold">ChatBot</h1>
+      <div className="bg-gray-800 p-4 flex items-center shadow-md">
+        {/* <Image
+          src="/bot-avatar.png"
+          width={40}
+          height={40}
+          className="rounded-full border-2 border-green-400"
+          alt="Bot"
+        /> */}
+        <h1 className="text-lg font-bold ml-3 text-gray-200">Chat App</h1>
       </div>
 
       {/* Chat Messages */}
-      <div className="flex-grow overflow-auto p-4 bg-gradient-to-b from-green-50 to-gray-100">
+      <div className="flex-grow overflow-auto p-4 bg-gray-850 custom-scrollbar">
         {messages.map((chat) => (
           <div
             key={chat.id}
-            className={`mb-3 p-3 rounded-xl max-w-xs shadow-sm ${
+            className={`mb-3 p-3 max-w-xs rounded-xl shadow-md text-sm ${
               chat.user === "You"
-                ? "bg-green-500 ml-auto text-white"
-                : "bg-white text-gray-800"
-            } animate-fade-in`}
+                ? "ml-auto bg-green-600 text-white"
+                : "bg-gray-700 text-gray-300"
+            }`}
           >
-            <p className="text-sm font-semibold">{chat.user}</p>
-            <p className="text-base">{chat.message}</p>
-            <p className="text-xs text-gray-300 text-right flex justify-end items-center">
+            <p className="font-semibold">{chat.user}</p>
+            <p className="mt-1">{chat.message}</p>
+            <p className="text-xs text-gray-400 text-right mt-1">
               {chat.time} {chat.user === "You" && (chat.seen ? "✅✅" : "✅")}
             </p>
           </div>
         ))}
         {typing && (
-          <div className="mb-3 p-3 rounded-xl max-w-xs bg-white shadow-sm animate-fade-in">
-            <p className="text-sm font-semibold">Bot</p>
-            <p className="text-gray-500 flex items-center">
-              <span className="animate-typing-dots">Typing</span>
-              <span className="animate-typing-dots delay-100">.</span>
-              <span className="animate-typing-dots delay-200">.</span>
-              <span className="animate-typing-dots delay-300">.</span>
+          <div className="mb-3 p-3 max-w-xs bg-gray-700 text-gray-300 rounded-xl shadow-md">
+            <p className="font-semibold">Bot</p>
+            <p className="mt-1 flex items-center">
+              Typing<span className="animate-pulse">...</span>
             </p>
           </div>
         )}
@@ -87,11 +90,11 @@ export default function Chat() {
       </div>
 
       {/* Chat Input */}
-      <div className="flex items-center p-3 bg-gray-100 border-t rounded-b-lg">
-        <FaRegSmile className="text-gray-500 text-xl cursor-pointer mx-2 hover:text-green-600 transition-colors" />
+      <div className="flex items-center p-3 bg-gray-800 border-t border-gray-700">
+        <FaRegSmile className="text-gray-500 text-xl cursor-pointer mx-2 hover:text-green-400 transition-colors" />
         <input
           type="text"
-          className="flex-grow p-2 border rounded-full focus:outline-none px-4 text-sm bg-white text-black placeholder-gray-400 focus:ring-2 focus:ring-green-500 transition-all"
+          className="flex-grow p-3 border border-gray-700 rounded-full bg-gray-850 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-400 focus:outline-none transition"
           placeholder="Type a message..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
@@ -99,7 +102,7 @@ export default function Chat() {
         />
         <button
           onClick={sendMessage}
-          className="ml-2 p-2 bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-green-600 transition-colors"
+          className="ml-2 p-3 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 transition-all"
         >
           <FaPaperPlane />
         </button>
